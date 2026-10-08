@@ -41,7 +41,7 @@ export default function App() {
   const [isRefreshingHealth, setIsRefreshingHealth] = useState<boolean>(false);
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [holidayContext, setHolidayContext] = useState<HolidayContext | null>(null);
-  const [selectedHolidayTheme, setSelectedHolidayTheme] = useState<string>('default');
+  const [selectedHolidayTheme, setSelectedHolidayTheme] = useState<string>('deepavali');
   const [cdtStories, setCdtStories] = useState<CDTSummary[]>([]);
   const [aggregators, setAggregators] = useState<AggregatorTraffic[]>([]);
 
@@ -131,8 +131,10 @@ export default function App() {
         const data = await res.json();
         setWeather(data.weather);
         setHolidayContext(data.holidays);
-        // Default theme can follow active holiday
-        if (data.holidays?.currentHoliday?.season) {
+        // Default theme follows active festive season or current holiday
+        if (data.holidays?.activeSeason && data.holidays.activeSeason !== 'default') {
+          setSelectedHolidayTheme(data.holidays.activeSeason);
+        } else if (data.holidays?.currentHoliday?.season) {
           setSelectedHolidayTheme(data.holidays.currentHoliday.season);
         }
       }
@@ -378,6 +380,7 @@ export default function App() {
         selectedTheme={selectedHolidayTheme}
         onSelectTheme={setSelectedHolidayTheme}
         allHolidays={holidayContext?.allHolidays || []}
+        onExploreFestiveNews={(keyword) => handlePerformSearch(keyword)}
       />
 
       {/* Three-Column Editorial Broadsheet Layout (Matches Miro Board Blueprint) */}

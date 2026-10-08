@@ -52,10 +52,15 @@ export interface SingaporeHoliday {
   date: string;
   season: string;
   greeting: string;
+  culturalHighlight?: string;
+  daysUntil?: number;
+  longWeekend?: boolean;
 }
 
 export interface HolidayContext {
   today: string;
+  isFestivePeriod?: boolean;
+  activeSeason?: string;
   currentHoliday: SingaporeHoliday;
   allHolidays: SingaporeHoliday[];
 }

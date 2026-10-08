@@ -55,40 +55,131 @@ export const AGGREGATOR_TRAFFIC_DATA = [
 
 // Singapore Public Holidays for 2026/2027
 export const SINGAPORE_HOLIDAYS = [
-  { name: 'New Year\'s Day', date: '2026-01-01', season: 'newyear', greeting: 'Happy New Year! Starting fresh in the Lion City.' },
-  { name: 'Chinese New Year', date: '2026-02-17', season: 'cny', greeting: 'Gong Xi Fa Cai! May the Year of the Horse bring prosperity & joy.' },
-  { name: 'Hari Raya Puasa', date: '2026-03-21', season: 'hariraya', greeting: 'Selamat Hari Raya Aidilfitri! Peace, joy and forgiveness.' },
-  { name: 'Good Friday', date: '2026-04-03', season: 'easter', greeting: 'Peaceful Good Friday long weekend.' },
-  { name: 'Hari Raya Haji', date: '2026-05-27', season: 'harirayahaji', greeting: 'Selamat Hari Raya Haji!' },
-  { name: 'Vesak Day', date: '2026-05-31', season: 'vesak', greeting: 'Happy Vesak Day! Wishing enlightenment and tranquility.' },
-  { name: 'National Day (SG)', date: '2026-08-09', season: 'nationalday', greeting: 'Majulah Singapura! Happy 61st Singapore National Day.' },
-  { name: 'Deepavali', date: '2026-11-08', season: 'deepavali', greeting: 'Happy Deepavali! May the festival of lights illuminate your path.' },
-  { name: 'Christmas Day', date: '2026-12-25', season: 'christmas', greeting: 'Merry Christmas from sunny tropical Singapore!' },
+  {
+    name: 'New Year\'s Day',
+    date: '2026-01-01',
+    season: 'newyear',
+    greeting: 'Happy New Year! Starting fresh in the Lion City.',
+    culturalHighlight: 'Marina Bay Fireworks Countdown & civic district illuminations.',
+    longWeekend: false,
+  },
+  {
+    name: 'Chinese New Year',
+    date: '2026-02-17',
+    season: 'cny',
+    greeting: 'Gong Xi Fa Cai! May the Year of the Horse bring prosperity & joy.',
+    culturalHighlight: 'Chinatown festive street light-up, River Hongbao & festive markets.',
+    longWeekend: true,
+  },
+  {
+    name: 'Hari Raya Puasa',
+    date: '2026-03-21',
+    season: 'hariraya',
+    greeting: 'Selamat Hari Raya Aidilfitri! Peace, joy and forgiveness.',
+    culturalHighlight: 'Geylang Serai Ramadan Bazaar & Kampong Glam cultural light-up.',
+    longWeekend: true,
+  },
+  {
+    name: 'Good Friday',
+    date: '2026-04-03',
+    season: 'easter',
+    greeting: 'Peaceful Good Friday long weekend in Singapore.',
+    culturalHighlight: 'Cathedral of the Good Shepherd & quiet city retreats.',
+    longWeekend: true,
+  },
+  {
+    name: 'Hari Raya Haji',
+    date: '2026-05-27',
+    season: 'harirayahaji',
+    greeting: 'Selamat Hari Raya Haji! Commemorating faith and charity.',
+    culturalHighlight: 'Sultan Mosque special prayers & community gatherings.',
+    longWeekend: false,
+  },
+  {
+    name: 'Vesak Day',
+    date: '2026-05-31',
+    season: 'vesak',
+    greeting: 'Happy Vesak Day! Wishing enlightenment and tranquility.',
+    culturalHighlight: 'Buddha Tooth Relic Temple ceremonies & lotus blessings.',
+    longWeekend: true,
+  },
+  {
+    name: 'National Day (SG)',
+    date: '2026-08-09',
+    season: 'nationalday',
+    greeting: 'Majulah Singapura! Happy 61st Singapore National Day.',
+    culturalHighlight: 'National Day Parade (NDP) at the Padang, state flypast & fireworks.',
+    longWeekend: true,
+  },
+  {
+    name: 'Deepavali',
+    date: '2026-11-08',
+    season: 'deepavali',
+    greeting: 'Happy Deepavali! May the Divine Light illuminate your home with wisdom and happiness.',
+    culturalHighlight: 'Little India Deepavali street light-up along Serangoon Road, Campbell Lane festive bazaar & peacock archways.',
+    longWeekend: true,
+  },
+  {
+    name: 'Christmas Day',
+    date: '2026-12-25',
+    season: 'christmas',
+    greeting: 'Merry Christmas from sunny tropical Singapore!',
+    culturalHighlight: 'Christmas on A Great Street along Orchard Road & Christmas Wonderland at Gardens by the Bay.',
+    longWeekend: true,
+  },
 ];
 
-// Helper: Determine Current or Upcoming Holiday
+// Helper: Determine Current or Upcoming Holiday & Festive Season
 function getHolidayContext() {
   const now = new Date();
   const currentMonth = now.getMonth() + 1; // 1-12
   const currentDay = now.getDate();
   const todayStr = `${now.getFullYear()}-${String(currentMonth).padStart(2, '0')}-${String(currentDay).padStart(2, '0')}`;
 
-  // Find next or current holiday
-  let activeHoliday = SINGAPORE_HOLIDAYS.find(h => {
+  // Calculate days until each holiday
+  const holidaysWithDays = SINGAPORE_HOLIDAYS.map((h) => {
     const hDate = new Date(h.date);
-    const diffDays = Math.abs((now.getTime() - hDate.getTime()) / (1000 * 3600 * 24));
-    return diffDays <= 7; // within a week of holiday
+    const diffTime = hDate.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 3600 * 24));
+    return {
+      ...h,
+      daysUntil: diffDays,
+    };
   });
 
-  if (!activeHoliday) {
-    // Upcoming holiday
-    activeHoliday = SINGAPORE_HOLIDAYS.find(h => new Date(h.date) >= now) || SINGAPORE_HOLIDAYS[0];
+  // Detect Singapore active festive period:
+  // In Singapore, October to mid-November is officially the Deepavali festive season!
+  // (Little India Light-Up runs October through November)
+  let activeSeason = 'default';
+  let isFestivePeriod = false;
+
+  if (currentMonth === 10 || (currentMonth === 11 && currentDay <= 15)) {
+    activeSeason = 'deepavali';
+    isFestivePeriod = true;
+  } else if (currentMonth === 12) {
+    activeSeason = 'christmas';
+    isFestivePeriod = true;
+  } else if (currentMonth === 1 || currentMonth === 2) {
+    activeSeason = 'cny';
+    isFestivePeriod = true;
+  } else if (currentMonth === 3 || currentMonth === 4) {
+    activeSeason = 'hariraya';
+    isFestivePeriod = true;
+  } else if (currentMonth === 7 || currentMonth === 8) {
+    activeSeason = 'nationalday';
+    isFestivePeriod = true;
   }
+
+  // Find current active festive holiday or closest upcoming
+  const upcomingHoliday = holidaysWithDays.find((h) => h.daysUntil >= 0) || holidaysWithDays[0];
+  const activeHoliday = holidaysWithDays.find((h) => h.season === activeSeason) || upcomingHoliday;
 
   return {
     today: todayStr,
+    isFestivePeriod,
+    activeSeason,
     currentHoliday: activeHoliday,
-    allHolidays: SINGAPORE_HOLIDAYS,
+    allHolidays: holidaysWithDays,
   };
 }
 
