@@ -28,11 +28,11 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
     {
       id: 'welcome',
       role: 'merlion',
-      text: `Rawr! Hello there! 🦁🌊 I am your Singapore Merlion News Companion! Today around Marina Bay it is a warm ${
+      text: `Greetings! 🦁🌊 I am Prof M, your Singapore news scholar and guide! Today around Marina Bay it is a pleasant ${
         weather?.temperature || 30
       }°C with tropical breezes. With ${
-        currentHoliday?.name || 'the upcoming festival'
-      } on the horizon, feel free to ask me to summarise any breaking global wire or local story!`,
+        currentHoliday?.name || 'the festive season'
+      } approaching, feel free to ask me to analyse any breaking world headline or Singapore policy dispatch!`,
       timestamp: 'Just now',
     },
   ]);
@@ -87,7 +87,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
       const botMsg: ChatMessage = {
         id: `merlion-${Date.now()}`,
         role: 'merlion',
-        text: data.reply || 'Rawr! I\'ve read through the latest wires for you! 🦁',
+        text: data.reply || 'Greetings! I\'ve reviewed today\'s wires for you. 🦁',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, botMsg]);
@@ -95,7 +95,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
       const fallbackMsg: ChatMessage = {
         id: `merlion-err-${Date.now()}`,
         role: 'merlion',
-        text: 'Rawr! The sea currents are momentarily quiet, but I recommend checking out our Culture and Singapore trade dispatches! 🦁🌊',
+        text: 'Greetings! The scholarly wire is momentarily refreshing, but I encourage checking our regional trade and culture briefings! 🦁🌊',
         timestamp: 'Now',
       };
       setMessages((prev) => [...prev, fallbackMsg]);
@@ -105,24 +105,24 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
   };
 
   return (
-    <aside aria-label="Merlion AI Assistant" className="fixed bottom-6 right-6 z-50">
+    <aside aria-label="Prof M AI Assistant" className="fixed bottom-6 right-6 z-50">
       {/* Floating Mascot Trigger Avatar */}
       {!isOpen && (
         <div className="relative group">
           {/* Subtle Speech Bubble Hint */}
           <div className="absolute bottom-full right-0 mb-3 bg-stone-900 text-white text-[11px] py-1 px-3 rounded-full shadow-lg whitespace-nowrap opacity-90 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 pointer-events-none">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Ask Merlion Mascot · {weather?.temperature || 30}°C SG</span>
+            <span>Ask Prof M · {weather?.temperature || 30}°C SG</span>
           </div>
 
           <button
             onClick={() => setIsOpen(true)}
             className="w-16 h-16 rounded-full border-2 border-white shadow-xl overflow-hidden hover:scale-105 active:scale-95 transition-all bg-amber-50 cursor-pointer relative"
-            title="Chat with Merlion Mascot"
+            title="Chat with Prof M"
           >
             <img
               src={merlionAvatarImg}
-              alt="Merlion Mascot"
+              alt="Prof M Mascot"
               className="w-full h-full object-cover"
             />
             <span className="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full" />
@@ -139,15 +139,15 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
               <div className="w-10 h-10 rounded-full border border-amber-300 overflow-hidden bg-white shrink-0">
                 <img
                   src={merlionAvatarImg}
-                  alt="Merlion Mascot"
+                  alt="Prof M"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h3 className="font-editorial text-sm font-semibold">Merlion Mascot AI</h3>
+                  <h3 className="font-editorial text-sm font-semibold">Prof M</h3>
                   <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-400/30 px-1 rounded font-mono">
-                    SG Live
+                    AI Scholar · SG
                   </span>
                 </div>
                 <p className="text-[10px] text-stone-300">
@@ -164,7 +164,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
             </button>
           </div>
 
-          {/* Quick Recommend Button (Miro Page 3: "interactive animated avatar to engage or recommend next news") */}
+          {/* Quick Recommend Button */}
           <div className="bg-amber-50/70 border-b border-amber-200/60 px-3 py-1.5 flex items-center justify-between text-[11px] text-stone-700">
             <span className="text-stone-500">Unsure what to read?</span>
             <button
@@ -172,7 +172,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
               className="text-amber-800 hover:text-amber-950 font-medium flex items-center gap-1 cursor-pointer underline"
             >
               <Sparkles className="w-3 h-3 text-amber-600" />
-              <span>Recommend Next News</span>
+              <span>Ask Prof M for Recommendations</span>
             </button>
           </div>
 
@@ -185,7 +185,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
               >
                 {msg.role === 'merlion' && (
                   <div className="w-7 h-7 rounded-full overflow-hidden shrink-0 border border-amber-200 mt-0.5 bg-white">
-                    <img src={merlionAvatarImg} alt="Merlion" className="w-full h-full object-cover" />
+                    <img src={merlionAvatarImg} alt="Prof M" className="w-full h-full object-cover" />
                   </div>
                 )}
                 <div
@@ -210,9 +210,9 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
             {isLoading && (
               <div className="flex gap-2.5 items-center text-xs text-stone-500 font-serif italic">
                 <div className="w-6 h-6 rounded-full overflow-hidden border border-amber-200 bg-white">
-                  <img src={merlionAvatarImg} alt="Merlion" className="w-full h-full object-cover animate-pulse" />
+                  <img src={merlionAvatarImg} alt="Prof M" className="w-full h-full object-cover animate-pulse" />
                 </div>
-                <span>Merlion is swimming through today's dispatches... 🦁</span>
+                <span>Prof M is reviewing the latest global dispatches... 🦁</span>
               </div>
             )}
             <div ref={messagesEndRef} />
@@ -221,7 +221,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
           {/* Top 3 Startup Prompts (Page 1 requirement) */}
           <div className="p-2.5 bg-white border-t border-stone-200/70 space-y-1">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-400 block px-1">
-              Top Prompts to Ask:
+              Top Prompts for Prof M:
             </span>
             <div className="flex flex-col gap-1">
               {startupPrompts.map((prompt, i) => (
@@ -248,7 +248,7 @@ export const MerlionMascotWidget: React.FC<MerlionMascotWidgetProps> = ({
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Ask anything (e.g. Singapore news, weather)..."
+              placeholder="Ask Prof M (e.g. Singapore news, weather)..."
               className="flex-1 bg-white border border-stone-300 rounded-lg px-3 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-stone-800"
             />
             <button

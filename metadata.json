@@ -1,6 +1,6 @@
 {
   "name": "The News Dispatch - Global & Singapore AI News Hub",
-  "description": "Cross-border news aggregator with AI summaries, Singapore vs World perspective, Connect-the-Dots themes, Daily Minute audio podcast, and animated Merlion mascot live assistant.",
+  "description": "Cross-border news aggregator with AI summaries, Singapore vs World perspective, Connect-the-Dots themes, Daily Minute audio podcast, and animated Prof M mascot live assistant.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

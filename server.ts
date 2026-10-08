@@ -557,7 +557,7 @@ app.post('/api/ai/podcast', async (req: Request, res: Response) => {
   if (!ai) {
     return res.json({
       title: 'Daily Minute: Reports from around the world',
-      speaker: 'Nicole Schulz & Merlion Anchor',
+      speaker: 'Nicole Schulz & Prof M',
       durationFormatted: '01:15',
       script: 'Good morning from The News Dispatch. Here is your 60-second world report. Southeast Asian trade corridors are registering fresh cross-border connectivity gains as Singapore deepens bilateral agreements. In global tech, next-generation computing infrastructure continues to reshape market projections. Meanwhile, communities in Singapore are preparing for festive holiday gatherings with mild afternoon showers forecast across Marina Bay. Stay curious, stay informed.',
       audioAvailable: false,
@@ -565,14 +565,14 @@ app.post('/api/ai/podcast', async (req: Request, res: Response) => {
   }
 
   try {
-    const prompt = `Write an engaging, crisp 60-second radio podcast script for "Daily Minute: Reports from around the world" hosted by Nicole Schulz and the Merlion AI Anchor.
+    const prompt = `Write an engaging, crisp 60-second radio podcast script for "Daily Minute: Reports from around the world" hosted by Nicole Schulz and Prof M (the scholarly Merlion news anchor).
 Base it on these current headlines:
 ${list}
 
 Return JSON:
 {
   "title": "Daily Minute: Reports from around the world",
-  "speaker": "Nicole Schulz & Merlion Anchor",
+  "speaker": "Nicole Schulz & Prof M",
   "durationFormatted": "01:15",
   "script": "The spoken radio script (approx 120 words, energetic, warm, professional)"
 }`;
@@ -634,32 +634,32 @@ Return JSON:
   }
 });
 
-// Merlion Mascot Live Chat Endpoint (Miro Board Page 1)
-// "live chat for any questions that AI will help summarise or search using the merlion animated mascot with theme of public holiday and Singapore weather"
+// Prof M Mascot Live Chat Endpoint (Miro Board Page 1)
+// "live chat for any questions that AI will help summarise or search using Prof M animated mascot with theme of public holiday and Singapore weather"
 // "can also show top 3 questions as a start up prompts for user to choose if unsure on any free text to ask"
 app.post('/api/ai/chat', async (req: Request, res: Response) => {
   const { message, history } = req.body;
   const holidayCtx = getHolidayContext();
 
-  const systemInstruction = `You are the adorable, wise, and cheerful Singapore Merlion Mascot for "The News Dispatch" news app.
+  const systemInstruction = `You are Prof M, the adorable, wise, and scholarly Singapore Merlion Professor mascot for "The News Dispatch" news app.
 Your persona:
-- Warm, polite, well-informed news guide with a cheerful Singaporean lion-fish mascot spirit.
+- Scholarly yet cheerful, polite, highly well-informed news guide with a friendly Singaporean lion-fish professor mascot spirit.
 - Knowledgeable about international news, ASEAN trade, Singapore public holidays, local weather, and food culture.
 - You weave in current Singapore weather (currently ~30°C partly cloudy with tropical showers) and public holiday festive cheer (current/upcoming: ${holidayCtx.currentHoliday.name} on ${holidayCtx.currentHoliday.date}).
-- Keep answers helpful, concise, well-formatted, and encouraging. Use friendly emojis like 🦁, 🌊, 🇸🇬, ☕.`;
+- Keep answers helpful, concise, well-formatted, and encouraging. Use friendly emojis like 🦁, 🌊, 🇸🇬, 📚, ☕.`;
 
   if (!ai) {
     return res.json({
-      reply: `Rawr! Hello there! 🦁 I am your Merlion Mascot news assistant. Today in Singapore it's a balmy 30°C with passing tropical showers around Marina Bay! With ${holidayCtx.currentHoliday.name} approaching, it's a wonderful time to catch up on today's top global and local dispatches. What topic would you like me to summarise or connect for you?`,
+      reply: `Greetings! 🦁 I am Prof M, your Singapore news scholar. Today around Marina Bay it is a balmy 30°C with passing tropical showers! With ${holidayCtx.currentHoliday.name} approaching, it's a wonderful time to examine today's top global and local dispatches. What topic would you like me to summarise or connect for you?`,
     });
   }
 
   try {
     const formattedHistory = Array.isArray(history)
-      ? history.slice(-6).map((h: any) => `${h.role === 'user' ? 'User' : 'Merlion'}: ${h.text}`).join('\n')
+      ? history.slice(-6).map((h: any) => `${h.role === 'user' ? 'User' : 'Prof M'}: ${h.text}`).join('\n')
       : '';
 
-    const fullPrompt = `${formattedHistory ? `Conversation so far:\n${formattedHistory}\n\n` : ''}User Question: ${message}\n\nPlease respond in character as the Merlion news mascot.`;
+    const fullPrompt = `${formattedHistory ? `Conversation so far:\n${formattedHistory}\n\n` : ''}User Question: ${message}\n\nPlease respond in character as Prof M.`;
 
     const response = await ai.models.generateContent({
       model: 'gemini-3.8-flash',

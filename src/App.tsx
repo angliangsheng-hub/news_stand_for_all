@@ -11,7 +11,6 @@ import { CenterFeed } from './components/CenterFeed';
 import { RightSidebar } from './components/RightSidebar';
 import { MerlionMascotWidget } from './components/MerlionMascotWidget';
 import { McpHealthModal } from './components/McpHealthModal';
-import { SubscriptionModal } from './components/SubscriptionModal';
 import { ProfileModal } from './components/ProfileModal';
 import { ArticleModal } from './components/ArticleModal';
 import {
@@ -74,12 +73,8 @@ export default function App() {
     'Technology, AI & Semiconductors',
     'Global Geopolitics & Multilateral Trade',
   ]);
-  const [userPlan, setUserPlan] = useState<string>('weekly_special');
-
-  // Modals
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isMcpModalOpen, setIsMcpModalOpen] = useState<boolean>(false);
-  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState<boolean>(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
 
   // 1. Initial Load: MCP Health, Weather, Holidays, CDT, Aggregators
@@ -372,7 +367,6 @@ export default function App() {
         onPerformSearch={handlePerformSearch}
         mcpHealth={mcpHealth}
         onOpenMcpModal={() => setIsMcpModalOpen(true)}
-        onOpenSubscribeModal={() => setIsSubscribeModalOpen(true)}
         onOpenProfileModal={() => setIsProfileModalOpen(true)}
         onTriggerPodcastPlay={handleTogglePodcast}
         recentSearches={recentSearches}
@@ -449,7 +443,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* Floating Animated Merlion Mascot Assistant (Miro Board Page 1 & 3) */}
+      {/* Floating Animated Prof M Mascot Assistant */}
       <MerlionMascotWidget
         weather={weather}
         currentHoliday={holidayContext?.currentHoliday || null}
@@ -463,13 +457,6 @@ export default function App() {
         mcpHealth={mcpHealth}
         onRefreshHealth={fetchMcpHealth}
         isRefreshing={isRefreshingHealth}
-      />
-
-      <SubscriptionModal
-        isOpen={isSubscribeModalOpen}
-        onClose={() => setIsSubscribeModalOpen(false)}
-        currentPlan={userPlan}
-        onSelectPlan={setUserPlan}
       />
 
       <ProfileModal

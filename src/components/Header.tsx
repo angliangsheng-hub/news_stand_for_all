@@ -12,7 +12,6 @@ interface HeaderProps {
   onPerformSearch: (query: string) => void;
   mcpHealth: MCPHealthResponse | null;
   onOpenMcpModal: () => void;
-  onOpenSubscribeModal: () => void;
   onOpenProfileModal: () => void;
   onTriggerPodcastPlay: () => void;
   recentSearches: string[];
@@ -28,7 +27,6 @@ export const Header: React.FC<HeaderProps> = ({
   onPerformSearch,
   mcpHealth,
   onOpenMcpModal,
-  onOpenSubscribeModal,
   onOpenProfileModal,
   onTriggerPodcastPlay,
   recentSearches,
@@ -161,17 +159,9 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Sign In text link */}
           <button
             onClick={onOpenProfileModal}
-            className="hidden sm:inline text-xs font-medium text-stone-600 hover:text-stone-900 transition-colors cursor-pointer"
+            className="text-xs font-medium text-stone-600 hover:text-stone-900 transition-colors cursor-pointer"
           >
             Sign in
-          </button>
-
-          {/* Subscribe Button (Matches Miro board blue/accent CTA) */}
-          <button
-            onClick={onOpenSubscribeModal}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-3.5 py-1.5 rounded transition-colors shadow-xs cursor-pointer whitespace-nowrap"
-          >
-            Subscribe
           </button>
         </div>
       </div>

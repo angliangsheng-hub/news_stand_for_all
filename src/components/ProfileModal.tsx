@@ -152,7 +152,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
         {/* Footer */}
         <div className="flex items-center justify-between pt-3 border-t border-stone-200">
           <span className="text-[11px] text-stone-400">
-            Preferences synced with Merlion AI Assistant
+            Preferences synced with Prof M AI Assistant
           </span>
           <button
             onClick={handleSave}

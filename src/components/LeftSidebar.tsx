@@ -75,7 +75,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between text-[11px] text-stone-500 mb-1">
                 <span className="truncate font-medium text-stone-800">
-                  {podcast?.speaker || 'Nicole Schulz & Merlion Anchor'}
+                  {podcast?.speaker || 'Nicole Schulz & Prof M'}
                 </span>
                 <span className="font-mono text-stone-400">
                   {isPlayingPodcast ? `${Math.floor(podcastProgress * 60)}s` : podcast?.durationFormatted || '01:15'}
