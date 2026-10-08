@@ -105,3 +105,20 @@ git push https://<GITHUB_TOKEN>@github.com/angliangsheng-hub/news_stand_for_all
 - Updated `/prompt.md` at project root with complete prompt history.
 - Pushed updated codebase to GitHub repository `https://github.com/angliangsheng-hub/news_stand_for_all`.
 
+---
+
+## Prompt 7: Reading GEMINI_API_KEY through Vercel & Syncing RGOGC Master Prompt (2)
+```text
+1. read new RGOGC_master_prompt_influencer (2).md in github
+2. read GEMINI_API_KEY through vercel
+3. create a prompt.md containing all my prompts located at project.main
+4. git push https://<GITHUB_TOKEN>@github.com/angliangsheng-hub/news_stand_for_all
+```
+
+### Key Requirements Implemented:
+- Synced and analyzed `RGOGC_master_prompt_influencer (2).md` from GitHub repository.
+- Built full suite of serverless API handlers in `/api` (`api/health.js`, `api/news.js`, `api/weather.js`, `api/traffic-ranks.js`, `api/china-insights.js`, and `api/ai/*.js`) specifically designed to read `process.env.GEMINI_API_KEY` from Vercel Project Settings > Environment Variables during deployment, alongside local AI Studio runtime execution.
+- Maintained `/prompt.md` at project root with full chronological prompt history.
+- Pushed all updates to GitHub repository `https://github.com/angliangsheng-hub/news_stand_for_all`.
+
+
