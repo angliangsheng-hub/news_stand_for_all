@@ -87,3 +87,21 @@ create a prompt.md containing all my prompts located at project.main
 
 ### Key Requirements Implemented:
 - Created `/prompt.md` containing all prompts, chronological history, and implementation summaries.
+
+---
+
+## Prompt 6: Integration of New Master Prompt & GEMINI_API_KEY
+```text
+read new RGOGC_master_prompt_influencer (1).md in github, to use GEMINI_API_KEY="MY_GEMINI_API_KEY" instead
+
+create a prompt.md containing all my prompts located at project.main
+
+git push https://<GITHUB_TOKEN>@github.com/angliangsheng-hub/news_stand_for_all
+```
+
+### Key Requirements Implemented:
+- Synced and read `RGOGC_master_prompt_influencer (1).md` from GitHub.
+- Verified and configured `GEMINI_API_KEY="MY_GEMINI_API_KEY"` via `.env.example` and runtime environment variable handling across server and client API proxy routes.
+- Updated `/prompt.md` at project root with complete prompt history.
+- Pushed updated codebase to GitHub repository `https://github.com/angliangsheng-hub/news_stand_for_all`.
+
